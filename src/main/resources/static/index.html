@@ -204,7 +204,7 @@
      function deletarUsuario(id) {
       if(confirm('Deseja remover o usuário?')) {
       
-      if (id != null && id.trim() != '') {
+     
       $.ajax({
               method: "DELETE",
               url: "deletar",
@@ -214,6 +214,7 @@
               $('#modalPesquisaUser').modal('hide');
                 location.reload();
                 alert(response);
+                location.reload();
                
                
             }
@@ -224,7 +225,7 @@
      
       }
      }
-    }
+    
      function salvarUsuario() {
             var id = $("#id").val();
             var nome = $("#nome").val();
