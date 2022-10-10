@@ -22,7 +22,7 @@ public class SecurityConfig {
 			.authenticated()
 		.and()
 			.formLogin()
-				.loginPage("/login")
+				.loginPage("/auth")
 				.permitAll()
 		.and()
 			.logout()
