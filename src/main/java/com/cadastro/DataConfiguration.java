@@ -4,8 +4,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.hibernate.boot.model.relational.Database;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
 public class DataConfiguration {
@@ -25,4 +28,6 @@ public class DataConfiguration {
 
         return basicDataSource;
     }
+
+
 }
