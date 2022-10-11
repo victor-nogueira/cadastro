@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
@@ -26,7 +27,7 @@ public class SecurityConfig {
 		.authorizeRequests()
 			.antMatchers("/").authenticated()
 		.and()
-			.logout().logoutSuccessUrl("/auth")
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/auth")
 			.permitAll();
 		 http.csrf().disable();
 	     	return http.build();
