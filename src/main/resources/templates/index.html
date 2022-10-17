@@ -61,14 +61,29 @@
     margin-left: 100%;
   }
 
+
+
+  time{
+  border: 1px solid #ffffff;
+  padding: 4px 12px;
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+  font-size: 2em;
+  font-weight: 300;
+  border-radius: 4px;
+  margin-bottom: 100%;
+}
+
   </style>
   <body class="body">
     <div style="text-align: center">
+    
       <img
         src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/84_Dev-512.png"
         width="180"
         height="100"
       />
+      
       <h3 class="font">INSCRIÇÃO DO CURSO</h3>
     </div>
     <div>
@@ -112,10 +127,13 @@
       class="btn btn-secondary"
       data-bs-toggle="modal"
       data-bs-target="#modalPesquisaUser"
+      onClick="listarUser()"
     >
       Pesquisar
     </button>
     
+  
+
     <div class="div" id="div">
     <form th:action="@{/logout}" method="post">
     
@@ -144,7 +162,8 @@
               class="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
-            ></button>
+              onClick="limparCampos()"
+              ></button>
           </div>
           <div class="modal-body">
             <form>
@@ -156,12 +175,29 @@
               </div>
               <button
                 type="button"
-                class="btn btn-success"
+                class="btn btn-secondary"
                 onClick="pesquisarUser()"
               >
                Buscar
               </button>
-            
+              
+              <button
+                type="button"
+                class="btn btn-dark"
+                onClick="listarUser()"
+              >
+               Listar
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-danger"
+                onClick="limparCampos()"
+              >
+               Limpar
+              </button>
+
+
             </form>
           <div style="height: 300px;overflow: scroll;">
             <table class="table" id="tabelaResultado">
@@ -182,6 +218,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              onClick="limparCampos()"
             >
               Fechar
             </button>
@@ -202,24 +239,30 @@
     ></script>
 
     <script type="text/javascript">
-       
-	   function pesquisarUser () {
+      
+      function limparCampos(){
+				$("#nomeBusca").val('');
+				$("#tabelaResultado > tbody > tr").remove();
+	  } 
+     
+	   
+    
+        function pesquisarUser () {
       		var nome = $('#nomeBusca').val();
-      	
 
+          
           if (nome != null && nome.trim() != ''){
       		$.ajax({
               method: "GET",
               url: "buscarPorNome",
               data: "nome=" + nome ,
 			  success: function(response) {
-        $('#tabelaResultado > tbody > tr').show();
-
+      
         $('#tabelaResultado > tbody > tr').remove();
-				
 				for (var i = 0; i < response.length; i++) {
-					$('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><button type="button" onClick="colocarEdicao('+response[i].id+')" class="btn btn-primary">Visualizar</button></td><td><button type="button" onClick="deletarUsuario('+response[i].id+')" class="btn btn-danger">Deletar</button></td></tr>');
-				}   
+					$('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><button type="button" onClick="colocarEdicao('+response[i].id+')" class="btn btn-dark">Alterar</button></td><td><button type="button" onClick="deletarUsuario('+response[i].id+')" class="btn btn-danger">Deletar</button></td></tr>');
+          
+        }   
       
       }
 			
@@ -228,29 +271,39 @@
             });
 		}
 
+      
+
        }
     
-
+    
+   
 	   function colocarEdicao(id) {
-			$.ajax({
+			
+      $.ajax({
               method: "GET",
               url: "buscar",
               data: "idUser=" + id,
-			  success: function(response) {
+              
+        success: function(response) {
 				$("#nome").val(response.nome);
 				$("#idade").val(response.idade);
 				$("#email").val(response.email);
 				$("#curso").val(response.curso);
 				
+        
 				$('#modalPesquisaUser').modal('hide');
-			
+        
       }
 			
 			}).fail(function (xhr, status, errorThrown) {
               alert("Erro ao buscar id do usuário" + xhr.responseText);
             });
-	   }
+          
+    
+    }
 
+
+    
 
 
      function deletarUsuario(id) {
@@ -277,7 +330,31 @@
      
       }
      }
-    
+     
+     function listarUser() {
+            
+            var nome = $("#nome").val();
+            
+
+            $.ajax({
+              method: "GET",
+              url: "listar",
+              data: "nome=" + nome ,
+             success: function (response) {
+          
+      
+        for (var i = 0; i < response.length; i++) {
+        $('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><button type="button" onClick="colocarEdicao('+response[i].id+')" class="btn btn-dark">Alterar</button></td><td><button type="button" onClick="deletarUsuario('+response[i].id+')" class="btn btn-danger">Deletar</button></td></tr>');
+              }
+            
+            }    
+        }).fail(function (xhr, status, errorThrown) {
+              alert("Não foi possivel listar" + xhr.responseText);
+            });
+          }
+     
+
+
      function salvarUsuario() {
             var id = $("#id").val();
             var nome = $("#nome").val();
@@ -323,6 +400,32 @@
               alert("Erro ao cadastrar aluno! " + xhr.responseText);
             });
           }
+          
+
+         const showTimeNow = () =>{
+
+        //Selecinando a tag de destino
+         const clockTag = document.querySelector('time');
+          
+        //Instanciando a classe Date
+          let dateNow = new Date();
+
+        //pegando os valores desejados
+         let hh = dateNow.getHours();
+          let mm = dateNow.getMinutes();
+          let ss = dateNow.getSeconds();
+          
+          hh = hh < 10 ? '0'+ hh : hh; 
+          mm = mm < 10 ? '0'+ mm : mm; 
+          ss = ss < 10 ? '0'+ ss : ss; 
+          
+          clockTag.innerText = hh +':'+ mm +':'+ ss;
+        }
+
+        //executando a funcao a cada 1 segundo
+        showTimeNow()
+        setInterval(showTimeNow, 1000);
+        
     </script>
   </body>
 </html>
