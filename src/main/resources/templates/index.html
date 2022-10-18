@@ -13,6 +13,10 @@
       crossorigin="anonymous"
     />
     <link href='https://css.gg/log-out.css' rel='stylesheet'>
+    <!--Import materialize Css-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection"/>
+	  	
+	  <link rel="stylesheet" href="/style/styleCss.css"/>
     <link
       rel="icon"
       type="imagem/png"
@@ -22,12 +26,15 @@
   </head>
 
   <style type="text/css">
-  html{
+  .form-cadastro{
     margin-left: 35%;
     margin-right: 35%;
     margin-top: 3%;
     
   }
+  
+  
+  
   body {
     background-color:  #f5f5f5;
   }
@@ -72,21 +79,50 @@
   font-weight: 300;
   border-radius: 4px;
   margin-bottom: 100%;
+  margin-left: 100%;
+}
+.btn{
+  text-decoration: none;
+    color: #fff;
+    background-color: #000000;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #f5f5f5;
+  padding: 0;
+  max-height: 100%;
+  width: 85%;
+  margin:auto;
+  overflow-y: auto;
+  border-radius: 2px;
+  will-change: top, opacity;
+}
   </style>
   <body class="body">
-    <div style="text-align: center">
+    <nav>
+      <div class="nav-wrapper black white-text">
+        <a href="#" class="brand-logo center">FORMULÁRIO DE INSCRIÇÃO</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><time></time></li>
+          
+        </ul>
+        
+      </div>
+    </nav>  
     
-      <img
-        src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/84_Dev-512.png"
-        width="180"
-        height="100"
-      />
-      
-      <h3 class="font">INSCRIÇÃO DO CURSO</h3>
-    </div>
-    <div>
+    
+  
+  <div class="form-cadastro" id="form-cadastro">
+  
     <form class="form-signin"action="" id="formCadastroUser">
       <div class="mb-3">
         <label for="nome" class="form-label"></label>
@@ -131,18 +167,18 @@
     >
       Pesquisar
     </button>
-    
-  
-
     <div class="div" id="div">
-    <form th:action="@{/logout}" method="post">
-    
-        <button
+      <form th:action="@{/logout}" method="post">
+        <h6><b>Sair</b></h6>
+        <button 
         type="submit"
         class="gg-log-off" onclick="alert('Você foi desconectado');">
         </button>
      </form>
-    </div>
+      </div>
+  </div>
+
+    
     <div
       class="modal fade"
       id="modalPesquisaUser"
