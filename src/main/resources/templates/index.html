@@ -15,7 +15,7 @@
     <link href='https://css.gg/log-out.css' rel='stylesheet'>
     <!--Import materialize Css-->
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection"/>
-	  	
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	  <link rel="stylesheet" href="/style/styleCss.css"/>
     <link
       rel="icon"
@@ -305,7 +305,7 @@
       
         $('#tabelaResultado > tbody > tr').remove();
 				for (var i = 0; i < response.length; i++) {
-				$('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><button type="button" onClick="colocarEdicao('+response[i].id+')" class="btn btn-dark">Alterar</button></td><td><button type="button" onClick="deletarUsuario('+response[i].id+')" class="btn btn-danger">Remover</button></td><td><button type="button" onClick="gerarPdf('+response[i].id+')" class="btn-pdf" id="btn-pdf">PDF</button></td></tr>');
+          $('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><a type="button" onClick="colocarEdicao('+response[i].id+')"><i class="material-icons">edit</i></a></td><td><a type="submit" onClick="deletarUsuario('+response[i].id+')" ><i class="material-icons">delete</i></a></td><td><a type="button" onClick="gerarPdf('+response[i].id+')" class="btn-pdf" id="btn-pdf"><i class="material-icons">file_download</i></a></td></tr>');
           
         }   
       
@@ -380,24 +380,25 @@
             
             var nome = $("#nome").val();
             
-
+            
             $.ajax({
               method: "GET",
               url: "listar",
               data: "nome=" + nome ,
              success: function (response) {
-          
+              
+              $("#tabelaResultado > tbody > tr").remove();
       
         for (var i = 0; i < response.length; i++) {
-          $('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><button type="button" onClick="colocarEdicao('+response[i].id+')" class="btn btn-dark">Alterar</button></td><td><button type="button" onClick="deletarUsuario('+response[i].id+')" class="btn btn-danger">Remover</button></td><td><button type="button" onClick="gerarPdf('+response[i].id+')" class="btn-pdf" id="btn-pdf">PDF</button></td></tr>');
+          $('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><a type="button" onClick="colocarEdicao('+response[i].id+')"><i class="material-icons">edit</i></a></td><td><a type="submit" onClick="deletarUsuario('+response[i].id+')" ><i class="material-icons">delete</i></a></td><td><a type="button" onClick="gerarPdf()" class="btn-pdf" id="btn-pdf"><i class="material-icons">file_download</i></a></td></tr>');
               }
-            
+             
             }    
         }).fail(function (xhr, status, errorThrown) {
               alert("Não foi possivel listar" + xhr.responseText);
             });
           }
-     
+        
 
 
      function salvarUsuario() {
@@ -471,6 +472,14 @@
         showTimeNow()
         setInterval(showTimeNow, 1000);
         
+
+        // GERAR PDF
+        
+        function gerarPdf(){
+
+
+        }
+
     </script>
   </body>
 </html>
