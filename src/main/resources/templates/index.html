@@ -68,10 +68,6 @@
     margin-left: 100%;
   }
 
-  .btn-pdf{
-    background-color: red;
-    color: #f5f5f5;
-  }
 
   time{
   border: 1px solid #ffffff;
@@ -236,6 +232,8 @@
                Limpar
               </button>
 
+              <button type="button" a class="waves-effect waves-light btn" id="gerarPdf"><i class="material-icons right">file_download</i>Gerar Pdf</button>
+
 
             </form>
           <div style="height: 300px;overflow: scroll;">
@@ -245,7 +243,6 @@
                   <th scope="col">Nome</th>
                   <th scope="col">Editar</th>
                   <th scope="col">Remover</th>
-                  <th scope="col">PDF</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -305,7 +302,7 @@
       
         $('#tabelaResultado > tbody > tr').remove();
 				for (var i = 0; i < response.length; i++) {
-          $('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><a type="button" onClick="colocarEdicao('+response[i].id+')"><i class="material-icons">edit</i></a></td><td><a type="submit" onClick="deletarUsuario('+response[i].id+')" ><i class="material-icons">delete</i></a></td><td><a type="button" onClick="gerarPdf('+response[i].id+')" class="btn-pdf" id="btn-pdf"><i class="material-icons">file_download</i></a></td></tr>');
+          $('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><a type="button" onClick="colocarEdicao('+response[i].id+')"><i class="material-icons">edit</i></a></td><td><a type="submit" onClick="deletarUsuario('+response[i].id+')" ><i class="material-icons">delete</i></a></td></tr>');
           
         }   
       
@@ -390,7 +387,7 @@
               $("#tabelaResultado > tbody > tr").remove();
       
         for (var i = 0; i < response.length; i++) {
-          $('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><a type="button" onClick="colocarEdicao('+response[i].id+')"><i class="material-icons">edit</i></a></td><td><a type="submit" onClick="deletarUsuario('+response[i].id+')" ><i class="material-icons">delete</i></a></td><td><a type="button" onClick="gerarPdf()" class="btn-pdf" id="btn-pdf"><i class="material-icons">file_download</i></a></td></tr>');
+          $('#tabelaResultado > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].nome+'</td><td><a type="button" onClick="colocarEdicao('+response[i].id+')"><i class="material-icons">edit</i></a></td><td><a type="submit" onClick="deletarUsuario('+response[i].id+')" ><i class="material-icons">delete</i></a></td><td></td></tr>');
               }
              
             }    
@@ -398,7 +395,27 @@
               alert("Não foi possivel listar" + xhr.responseText);
             });
           }
-        
+          //gerar PDF
+          
+          $('#gerarPdf').on('click', function () {
+              $.ajax({
+                  url: 'https://project-cadastro.herokuapp.com/pdf-generate',
+                  method: 'GET',
+                  xhrFields: {
+                      responseType: 'blob'
+                  },
+                  success: function (data) {
+                      var a = document.createElement('a');
+                      var url = window.URL.createObjectURL(data);
+                      a.href = url;
+                      a.download = 'relatorio.pdf';
+                      document.body.append(a);
+                      a.click();
+                      a.remove();
+                      window.URL.revokeObjectURL(url);
+                  }
+              });
+          });
 
 
      function salvarUsuario() {
@@ -472,14 +489,8 @@
         showTimeNow()
         setInterval(showTimeNow, 1000);
         
-
-        // GERAR PDF
         
-        function gerarPdf(){
-
-
-        }
-
-    </script>
+    
+  </script>
   </body>
 </html>
