@@ -398,7 +398,7 @@
           
           $('#gerarPdf').on('click', function () {
               $.ajax({
-                  url: 'http://localhost:8080/pdf-generate',
+                  url: 'https://project-cadastro.herokuapp.com/pdf-generate',
                   method: 'GET',
                   xhrFields: {
                       responseType: 'blob'
