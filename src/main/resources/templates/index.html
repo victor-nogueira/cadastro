@@ -232,7 +232,7 @@
                Limpar
               </button>
 
-              <button type="button" a class="waves-effect waves-light btn" id="gerarPdf"><i class="material-icons right">file_download</i>Gerar Pdf</button>
+              <button type="button" a class="waves-effect waves-light btn" id="gerarPdf"><i class="material-icons right">file_download</i>Relatório</button>
 
 
             </form>
@@ -350,24 +350,23 @@
 
      function deletarUsuario(id) {
       if(confirm('Deseja remover o usuário?')) {
-      
-     
+        
       $.ajax({
               method: "DELETE",
               url: "deletar",
               data: "idUser=" + id,
+              
               success: function(response) {
-            
+              alert("Cadastro deletado! ");
               $('#modalPesquisaUser').modal('hide');
                 location.reload();
-                alert(response);
                 location.reload();
                
                
             }
           
           }).fail(function (xhr, status, errorThrown) {
-              alert("Erro ao buscar deletar usuário " + xhr.responseText);
+              alert("Erro ao deletar usuário " + xhr.responseText);
             });
      
       }
@@ -399,13 +398,13 @@
           
           $('#gerarPdf').on('click', function () {
               $.ajax({
-                  url: 'https://project-cadastro.herokuapp.com/pdf-generate',
+                  url: 'http://localhost:8080/pdf-generate',
                   method: 'GET',
                   xhrFields: {
                       responseType: 'blob'
                   },
                   success: function (data) {
-                      var a = document.createElement('a');
+                    var a = document.createElement('a');
                       var url = window.URL.createObjectURL(data);
                       a.href = url;
                       a.download = 'relatorio.pdf';

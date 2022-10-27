@@ -55,7 +55,7 @@ public class CadastroController {
 	@ResponseBody
 	public ResponseEntity<String> deletar (@RequestParam Long idUser) {
 		usuarioRepository.deleteById(idUser); 
-		return new ResponseEntity<String>("Usuário deletado com sucesso", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<String>("Cadastro deletado! ", HttpStatus.NO_CONTENT);
 		
 	}
 	
