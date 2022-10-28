@@ -25,7 +25,9 @@
 		align-items: center;
 		padding-top: 40px;
 		padding-bottom: 40px;
-		background-color: #f5f5f5;
+		background: #000000 url("https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80");
+		background-size: cover;
+  		position:relative;
 	}
 	
 	.form-signin {
@@ -63,7 +65,7 @@
 
 <body class="text-center">
 	<form class="form-signin" th:action="@{/auth}" method="post">
-		<h1 class="h3 mb-3 font-weight-normal">Acesso à Página</h1>
+		<h1 class="h3 mb-3 text-light font-weight-normal">Credenciais</h1>
 		
 		<p class="alert alert-danger" th:if="${#bools.isTrue(param.error)}">
 			O login ou senha não confere
@@ -76,7 +78,7 @@
 		<button class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
 
 		
-	<p class="mt-5 mb-3 text-muted">&copy; Dev Systems</p>
+	<p class="mt-5 mb-3 text-light">&copy; Dev Systems</p>
 	</form>
 	<time></time>
 </body>
